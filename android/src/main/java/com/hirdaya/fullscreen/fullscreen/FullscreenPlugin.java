@@ -1,8 +1,6 @@
 package com.hirdaya.fullscreen.fullscreen;
 
 import android.app.Activity;
-import android.os.Build;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.WindowCompat;
@@ -16,7 +14,12 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
 /**
- * FullscreenPlugin By Hirdaya
+ * FullscreenPlugin By Hirdaya Shrestha
+ * For fullscreen in phones with notch
+ * you can add these lines in styles
+ * <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+ * <item name="android:windowTranslucentStatus">true</item>
+ * <item name="android:windowTranslucentNavigation">true</item>
  */
 public class FullscreenPlugin implements FlutterPlugin, MethodChannel.MethodCallHandler, ActivityAware {
 
@@ -53,12 +56,6 @@ public class FullscreenPlugin implements FlutterPlugin, MethodChannel.MethodCall
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
         mainActivity = binding.getActivity();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        }
     }
 
     @Override

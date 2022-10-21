@@ -1,10 +1,14 @@
 package com.hirdaya.fullscreen.fullscreen;
 
 import android.app.Activity;
+import android.os.Build;
+import android.view.WindowManager;
+
 import androidx.annotation.NonNull;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -71,6 +75,8 @@ public class FullscreenPlugin implements FlutterPlugin, MethodChannel.MethodCall
         WindowInsetsControllerCompat wICC = new WindowInsetsControllerCompat(mainActivity.getWindow(), mainActivity.getWindow().getDecorView());
         wICC.hide(WindowInsetsCompat.Type.systemBars());
         wICC.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            mainActivity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
     }
 
     private void showSystemUi() {

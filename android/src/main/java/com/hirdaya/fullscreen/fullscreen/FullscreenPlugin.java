@@ -52,13 +52,13 @@ public class FullscreenPlugin implements FlutterPlugin, MethodChannel.MethodCall
 
     @Override
     public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+        mainActivity = binding.getActivity();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES);
-        mainActivity = binding.getActivity();
     }
 
     @Override

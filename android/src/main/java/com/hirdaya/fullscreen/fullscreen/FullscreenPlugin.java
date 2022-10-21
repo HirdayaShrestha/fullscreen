@@ -75,10 +75,12 @@ public class FullscreenPlugin implements FlutterPlugin, MethodChannel.MethodCall
         WindowInsetsControllerCompat wICC = new WindowInsetsControllerCompat(mainActivity.getWindow(), mainActivity.getWindow().getDecorView());
         wICC.hide(WindowInsetsCompat.Type.systemBars());
         wICC.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-            mainActivity.getWindow().getAttributes().layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            mainActivity.getWindow().addFlags(WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES);
     }
 
     private void showSystemUi() {
